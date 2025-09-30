@@ -25,7 +25,7 @@ class TourismCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.network(tourism.image, fit: BoxFit.cover),
+                child: Hero(tag: tourism.id, child: Image.network(tourism.image, fit: BoxFit.cover)),
               ),
             ),
             const SizedBox.square(dimension: 8),
@@ -35,7 +35,7 @@ class TourismCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(tourism.name, style: const TextStyle(fontSize: 16)),
+                  Text(tourism.name, style: Theme.of(context).textTheme.titleMedium),
                   const SizedBox.square(dimension: 6),
                   Row(
                     children: [
@@ -46,6 +46,7 @@ class TourismCard extends StatelessWidget {
                           tourism.address,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ) 
                       )
                     ],
@@ -60,7 +61,8 @@ class TourismCard extends StatelessWidget {
                       const SizedBox.square(dimension: 4),
                       Expanded(
                         child: Text(
-                          tourism.like.toString()
+                          tourism.like.toString(),
+                          style: Theme.of(context).textTheme.bodyMedium
                         ),
                       )
                     ],

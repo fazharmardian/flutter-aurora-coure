@@ -15,7 +15,13 @@ class DetailScreen extends StatelessWidget {
           padding: EdgeInsets.all(8),
           child: Column(
             children: [
-              Image.network(tourism.image, fit: BoxFit.cover),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Hero(
+                  tag: tourism.id,
+                  child: Image.network(tourism.image, fit: BoxFit.cover)
+                ),
+              ),
               const SizedBox.square(dimension: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -27,11 +33,11 @@ class DetailScreen extends StatelessWidget {
                       children: [
                         Text(
                           tourism.name,
-                          style: const TextStyle(fontSize: 18),
+                          style: Theme.of(context).textTheme.headlineLarge,
                         ),
                         Text(
                           tourism.address,
-                          style: const TextStyle(fontSize: 12),
+                          style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
                         ),
                       ],
                     ),
@@ -40,14 +46,18 @@ class DetailScreen extends StatelessWidget {
                     children: [
                       const Icon(Icons.favorite),
                       const SizedBox.square(dimension: 4),
-                      Text(tourism.like.toString())
+                      Text(
+                        tourism.like.toString(),
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      )
                     ],
                   )
                 ],
               ),
               const SizedBox.square(dimension: 16),
               Text(
-                tourism.description
+                tourism.description,
+                style: Theme.of(context).textTheme.bodyLarge,
               )
             ],
           ),

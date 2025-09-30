@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tourism_app/model/tourism.dart';
+import 'package:tourism_app/provider/theme_provider.dart';
 import 'package:tourism_app/static/navigation_route.dart';
 import 'package:tourism_app/widget/tourism_card_widget.dart';
 
@@ -8,27 +10,41 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.watch<ThemeController>();
     return Scaffold(
-       appBar: AppBar(
-         title: const Text("Tourism List"),
-       ),
-       body: ListView.builder(
-         itemCount: tourismList.length,
-         itemBuilder: (context, index) {
-           final tourism = tourismList[index];
- 
-           return TourismCard(
+      appBar: AppBar(
+        title: const Text("Tourism List"),
+        actions: [
+          Row(
+            children: [
+              const Icon(Icons.light_mode),
+              Switch(
+                value: controller.isDark,
+                onChanged: (v) => context.read<ThemeController>().toggle(v),
+              ),
+              const Icon(Icons.dark_mode),
+              const SizedBox(width: 8),
+            ],
+          ),
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: tourismList.length,
+        itemBuilder: (context, index) {
+          final tourism = tourismList[index];
+
+          return TourismCard(
             tourism: tourism,
             onTap: () {
               Navigator.pushNamed(
                 context,
                 NavigationRoute.detailRoute.name,
-                arguments: tourism 
+                arguments: tourism,
               );
             },
           );
-         },
-       ),
-     );
+        },
+      ),
+    );
   }
 }
